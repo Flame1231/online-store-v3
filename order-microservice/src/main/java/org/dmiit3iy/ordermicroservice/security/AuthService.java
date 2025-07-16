@@ -2,7 +2,7 @@ package org.dmiit3iy.ordermicroservice.security;
 
 import lombok.RequiredArgsConstructor;
 import org.dmiit3iy.ordermicroservice.mapper.AuthMapper;
-import org.dmiit3iy.ordermicroservice.model.UserDetailsImpl;
+import org.dmiit3iy.ordermicroservice.model.User;
 import org.dmiit3iy.ordermicroservice.model.dto.AuthRequest;
 import org.dmiit3iy.ordermicroservice.model.dto.AuthResponse;
 import org.dmiit3iy.ordermicroservice.security.jwt.JwtService;
@@ -23,7 +23,7 @@ public class AuthService {
                 authMapper.toAuthToken(request)
         );
 
-        UserDetailsImpl user = (UserDetailsImpl) authentication.getPrincipal();
+        User user = (User) authentication.getPrincipal();
         String token = jwtService.generateToken(user);
         return new AuthResponse(token);
     }
