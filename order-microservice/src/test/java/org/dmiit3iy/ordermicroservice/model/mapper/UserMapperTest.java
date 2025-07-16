@@ -1,5 +1,6 @@
 package org.dmiit3iy.ordermicroservice.model.mapper;
 
+import org.dmiit3iy.ordermicroservice.mapper.UserMapper;
 import org.dmiit3iy.ordermicroservice.model.Role;
 import org.dmiit3iy.ordermicroservice.model.User;
 import org.dmiit3iy.ordermicroservice.model.dto.RegistrationRequest;

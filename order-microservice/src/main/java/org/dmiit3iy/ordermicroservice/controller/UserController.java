@@ -22,8 +22,7 @@ public class UserController {
     @Operation(summary = "Получить пользователя по ID")
     @GetMapping("/{id}")
     public ResponseEntity<UserDTO> getUser(@PathVariable Long id) {
-        User user = userService.findByID(id);
-        UserDTO userDTO = new UserDTO(user);
+        UserDTO userDTO = userService.findByIDReturnDro(id);
         return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }
 

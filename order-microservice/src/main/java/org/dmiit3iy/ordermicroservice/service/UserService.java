@@ -1,11 +1,12 @@
 package org.dmiit3iy.ordermicroservice.service;
 
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.dmiit3iy.ordermicroservice.model.User;
+import org.dmiit3iy.ordermicroservice.model.dto.RegistrationRequest;
+import org.dmiit3iy.ordermicroservice.mapper.UserMapper;
+import org.dmiit3iy.ordermicroservice.model.dto.UserDTO;
 import org.dmiit3iy.ordermicroservice.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,9 +18,11 @@ import java.util.Optional;
 public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final UserMapper userMapper;
 
     /**
      * Метод по добавлению пользователя
+     *
      * @param user
      * @return
      */
@@ -28,7 +31,7 @@ public class UserService {
             throw new IllegalArgumentException("username and email are both unique");
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-       return userRepository.save(user);
+        return userRepository.save(user);
     }
 
     /**
@@ -43,7 +46,18 @@ public class UserService {
     }
 
     /**
+     * Метод поиска пользователя по ID
+     *
+     * @param id
+     * @return UserDTO
+     */
+    public UserDTO findByIDReturnDro(long id) {
+        return userMapper.toUserDTO(findByID(id));
+    }
+
+    /**
      * Метод поиска по username
+     *
      * @param username
      * @return
      */
@@ -53,6 +67,7 @@ public class UserService {
 
     /**
      * Метод поиска по email
+     *
      * @param email
      * @return
      */
@@ -73,15 +88,13 @@ public class UserService {
 
     /**
      * Метод обновления пользователя
+     *
      * @param user
      * @return
      */
     public User update(User user) {
         User baseUser = findByID(user.getId());
-        baseUser.setUsername(user.getUsername());
-        baseUser.setEmail(user.getEmail());
-        baseUser.setPassword(user.getPassword());
-        baseUser.setRole(user.getRole());
+        baseUser=userMapper.updateUser(user);
         return userRepository.save(baseUser);
 
 
@@ -106,5 +119,25 @@ public class UserService {
     private boolean existByEmail(String email) {
         return userRepository.existsByEmail(email);
     }
+
+
+    /**
+     * Метод для реализации логики регистрации нового пользователя
+     *
+     * @param request
+     * @return
+     */
+    public String registerUser(RegistrationRequest request) {
+        if (findByUsername(request.getUsername()).isPresent()) {
+            throw new IllegalArgumentException("Username already taken");
+        }
+        if (findByEmail(request.getEmail()).isPresent()) {
+            throw new IllegalArgumentException("Email already in use");
+        }
+        User newUser = userMapper.toUser(request);
+        add(newUser);
+        return "User registered successfully";
+    }
+
 
 }
