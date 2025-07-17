@@ -1,6 +1,10 @@
 package ru.dmiit3iy.inventorymicroservice.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.dmiit3iy.inventorymicroservice.mapper.ProductMapper;
@@ -33,6 +37,14 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> get() {
         return productRepository.findAll();
+    }
+
+    @Override
+    public Page<Product> get(int page, int size, String sortBy, String direction) {
+        Sort sort = Sort.by(Sort.Direction.fromString(direction), sortBy);
+        Pageable pageable = PageRequest.of(page, size, sort);
+        return productRepository.findAll(pageable);
+
     }
 
     @Override

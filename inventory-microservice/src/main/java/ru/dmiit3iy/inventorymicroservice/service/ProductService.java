@@ -1,5 +1,6 @@
 package ru.dmiit3iy.inventorymicroservice.service;
 
+import org.springframework.data.domain.Page;
 import ru.dmiit3iy.inventorymicroservice.model.Product;
 
 import java.util.List;
@@ -10,6 +11,8 @@ public interface ProductService {
     Product get(long id);
 
     List<Product> get();
+
+    Page<Product> get(int page, int size, String sortBy, String direction);
 
     Product delete(long id);
 
