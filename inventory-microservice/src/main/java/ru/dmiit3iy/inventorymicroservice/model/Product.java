@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Entity
 @Getter
 @Setter
@@ -19,7 +21,7 @@ public class Product {
 
     private String name;
     private int quantity;
-    private double price;
-    private double sale;
+    private BigDecimal price;
+    private BigDecimal sale;
 
 }
