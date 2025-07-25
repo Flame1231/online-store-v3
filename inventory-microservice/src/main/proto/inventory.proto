@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package inventory;
+
+option java_multiple_files = true;
+option java_package = "org.dmiit3iy.inventorymicroservice.grpc.inventory";
+option java_outer_classname = "InventoryProto";
+
+message ProductRequest {
+  int64 productId = 1;
+}
+
+message ProductResponse {
+  int64 id = 1;
+  string name = 2;
+  int32 quantity = 3;
+  string price = 4;
+  string sale = 5;
+}
+
+service InventoryService {
+  rpc checkAvailability(ProductRequest) returns (ProductResponse);
+}
+
