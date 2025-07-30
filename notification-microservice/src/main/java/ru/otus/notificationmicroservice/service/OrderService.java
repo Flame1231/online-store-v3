@@ -9,4 +9,5 @@ public interface OrderService {
     Page<Order> getById(Long orderId, int page,int size, String sortBy, String direction);
 
     Page<Order> getByUserId(Long userId, int page,int size, String sortBy, String direction);
+    void save(Order order);
 }

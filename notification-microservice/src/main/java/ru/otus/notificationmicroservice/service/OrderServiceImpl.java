@@ -34,4 +34,9 @@ public class OrderServiceImpl implements OrderService {
         Pageable pageable = PageRequest.of(page, size, sort);
         return orderRepository.findAllByUser_id(userId, pageable);
     }
+
+    @Override
+    public void save(Order order) {
+        orderRepository.save(order);
+    }
 }
