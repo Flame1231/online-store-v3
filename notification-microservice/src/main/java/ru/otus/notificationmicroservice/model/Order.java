@@ -1,5 +1,6 @@
 package ru.otus.notificationmicroservice.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -14,17 +15,28 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @Table(name = "orders")
 public class Order {
+
     @Id
     private long id;
-    private long order_id;
-    private long product_id;
+
+    @Column(name = "order_id")
+    private long orderId;
+
+    @Column(name = "product_id")
+    private long productId;
+
     private int quantity;
+
     @NonNull
     private BigDecimal price;
+
     @NonNull
     private BigDecimal sale;
-    @NonNull
-    private BigDecimal total_price;
 
-    private long user_id;
+    @Column(name = "total_price")
+    @NonNull
+    private BigDecimal totalPrice;
+
+    @Column(name = "user_id")
+    private long userId;
 }

@@ -24,7 +24,7 @@ public class OrderController {
         return ResponseEntity.ok(products);
     }
 
-    @GetMapping("/{order_id} ")
+    @GetMapping("/{order_id}")
     @Operation(summary = "Получить список всех покупок по одному заказу")
     public ResponseEntity<Page<Order>> getAllByOrderId(@PathVariable("order_id") Long orderId,
                                                        @RequestParam(defaultValue = "0") int page,
@@ -35,7 +35,7 @@ public class OrderController {
         return ResponseEntity.ok(products);
     }
 
-    @GetMapping("/{user_id} ")
+    @GetMapping("/user/{user_id}")
     @Operation(summary = "Получить список всех покупок id пользователя")
     public ResponseEntity<Page<Order>> getAllByUserId(@PathVariable("user_id") Long userId,
                                                        @RequestParam(defaultValue = "0") int page,

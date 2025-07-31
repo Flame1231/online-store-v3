@@ -7,7 +7,7 @@ import ru.otus.notificationmicroservice.model.Order;
 
 public interface OrderRepository extends JpaRepository<Order, Long> {
 
-    Page<Order> findAllByOrder_id(Long orderId, Pageable pageable);
+    Page<Order> findAllByOrderId(Long orderId, Pageable pageable);
 
-    Page<Order> findAllByUser_id(Long userId, Pageable pageable);
+    Page<Order> findAllByUserId(Long userId, Pageable pageable);
 }

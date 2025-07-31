@@ -25,14 +25,14 @@ public class OrderServiceImpl implements OrderService {
     public Page<Order> getById(Long orderId, int page, int size, String sortBy, String direction) {
         Sort sort = Sort.by(Sort.Direction.fromString(direction), sortBy);
         Pageable pageable = PageRequest.of(page, size, sort);
-        return orderRepository.findAllByOrder_id(orderId, pageable);
+        return orderRepository.findAllByOrderId(orderId, pageable);
     }
 
     @Override
     public Page<Order> getByUserId(Long userId, int page, int size, String sortBy, String direction) {
         Sort sort = Sort.by(Sort.Direction.fromString(direction), sortBy);
         Pageable pageable = PageRequest.of(page, size, sort);
-        return orderRepository.findAllByUser_id(userId, pageable);
+        return orderRepository.findAllByUserId(userId, pageable);
     }
 
     @Override
